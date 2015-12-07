@@ -55,13 +55,14 @@ public class MoveTo : MonoBehaviour
 			agent.destination = targetWP.getWaypoint();
 		}
 
-		if(playerIsAggroable()){
+		if(playerIsAggroable() && !chasingPlayer){
 			Debug.Log ("Player in sight!");
 			GetComponent<AudioSource>().Play();
 			musicMgr.GetComponent<MusicManager>().playChase();
 			chasingPlayer = true;
 			agent.speed = turboMörkö;
 			agent.destination = player.position;
+			CameraShake.setChase();
 		}
 
 		if(chasingPlayer){
@@ -76,6 +77,7 @@ public class MoveTo : MonoBehaviour
 			musicMgr.GetComponent<MusicManager>().playNormal ();
 			targetWP = targetWP.getNext ();
 			agent.destination = targetWP.getWaypoint();
+			CameraShake.setChase();
 		}
 	}
 
