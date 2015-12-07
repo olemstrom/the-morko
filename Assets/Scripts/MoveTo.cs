@@ -13,6 +13,8 @@ public class MoveTo : MonoBehaviour
 	public AudioClip murina;
 	public GameObject musicMgr;
 
+	public Camera playerCamera;
+
 	private NavMeshAgent agent;
 
 	private WPNode targetWP;
@@ -67,6 +69,7 @@ public class MoveTo : MonoBehaviour
 
 		if(chasingPlayer){
 			agent.destination = player.position;
+			playerCamera.GetComponent<FrostEffect>().FrostAmount = (1 / Vector3.Distance(rayOrig.position, player.position));
 		}
 
 		if(Physics.Linecast (rayOrig.position, playerTargetPoint.position) && chasingPlayer){
