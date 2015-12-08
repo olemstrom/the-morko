@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MoveTo : MonoBehaviour 
 {
@@ -16,45 +17,48 @@ public class MoveTo : MonoBehaviour
 	public Camera playerCamera;
 
 	private NavMeshAgent agent;
-
-	private WPNode targetWP;
+	
+	private Stack<Vector3> wpStack = new Stack<Vector3>();
+	private List<Vector3> wpList = new List<Vector3>();
 
 	void Start () 
 	{
 		GetComponent<AudioSource> ().clip = murina;
 		agent = GetComponent<NavMeshAgent> ();
 		chasingPlayer = false;
-		targetWP = new WPNode();
 
 		/**
 		 *SEURAAVA KOODI VAIN TESTAUSTA VARTEN
 		 **/
-		WPNode nex0 = new WPNode(new Vector3 (34.0f, -1.5f, 40.0f));
-		WPNode nex1 = new WPNode(new Vector3(-56.0f, -1.5f, 24.0f));
-		WPNode nex2 = new WPNode(new Vector3(38.0f, -1.5f, -111.0f));
-		WPNode nex3 = new WPNode(new Vector3(-46.0f, -1.5f, -90.0f));
 
-		nex0.setNext (nex1);
-		nex1.setNext(nex2);
-		nex2.setNext (nex3);
-		nex3.setNext (nex0);
-
-		targetWP = nex0;
+		wpList.Add (new Vector3 (34.0f, -1.5f, 40.0f));
+		wpList.Add (new Vector3(-56.0f, -1.5f, 24.0f));
+		wpList.Add (new Vector3(38.0f, -1.5f, -111.0f));
+		wpList.Add (new Vector3(-46.0f, -1.5f, -90.0f));
 
 		/**
 		 * LOPPUU TÄHÄN 
 		 **/
 
-		agent.destination = targetWP.getWaypoint();
+		shuffleWPList();
+		refillWPStack();
+
+		agent.destination = wpStack.Peek ();
 
 	}
 
 	void Update()
 	{
 		//jos tarpeeks lähellä WPtä nii vaihetaan seuraavaan
-		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 2){
-			targetWP = targetWP.getNext ();
-			agent.destination = targetWP.getWaypoint();
+		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 2 && !chasingPlayer){
+		
+			if(wpStack.Count == 0){
+				shuffleWPList();
+				refillWPStack();
+			}
+			wpList.Add(wpStack.Peek ());
+			wpStack.Pop();
+			agent.destination = wpStack.Peek ();
 		}
 
 		if(playerIsAggroable() && !chasingPlayer){
@@ -78,9 +82,16 @@ public class MoveTo : MonoBehaviour
 			chasingPlayer = false;
 			agent.speed = 4; // perusnopeus
 			musicMgr.GetComponent<MusicManager>().playNormal ();
-			targetWP = targetWP.getNext ();
-			agent.destination = targetWP.getWaypoint();
+
+			if(wpStack.Count == 0){
+				shuffleWPList();
+				refillWPStack();
+			}
+			wpList.Add(wpStack.Peek ());
+			wpStack.Pop ();
+			agent.destination = wpStack.Peek ();
 			CameraShake.setChase();
+			playerCamera.GetComponent<FrostEffect>().FrostAmount = 0.0f;
 		}
 	}
 
@@ -92,5 +103,23 @@ public class MoveTo : MonoBehaviour
 		} else {
 			return false;
 		}
+	}
+
+	private void shuffleWPList()
+	{
+		for(int t = 0; t < wpList.Count; t++){
+			Vector3 tmp = wpList[t];
+			int r = Random.Range(t, wpList.Count);
+			wpList[t] = wpList[r];
+			wpList[r] = tmp;
+		}
+	}
+
+	private void refillWPStack()
+	{
+		foreach(Vector3 v in wpList){
+			wpStack.Push (v);
+		}
+		wpList.Clear ();
 	}
 }
