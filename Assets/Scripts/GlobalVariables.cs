@@ -13,6 +13,5 @@ public static class GlobalVariables
 		else
 			return false;
 	}
-
 }
 
