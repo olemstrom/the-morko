@@ -9,6 +9,7 @@ public class MoveTo : MonoBehaviour
 	
 	public int aggroDistance;
 	public int turboMörkö;
+	public int frostVariable;
 	public AudioClip murina;
 	public GameObject musicMgr;
 
@@ -86,7 +87,7 @@ public class MoveTo : MonoBehaviour
 		}
 
 		//Pelaajan ruutu jäätyy, mitä lähempänä mörriä ollaan.
-		playerCamera.GetComponent<FrostEffect>().FrostAmount = (4 / Vector3.Distance(rayOrig.position, player.position));
+		playerCamera.GetComponent<FrostEffect>().FrostAmount = (frostVariable / Vector3.Distance(rayOrig.position, player.position));
 	}
 
 	// Testaa näkeekö mörkö pelaajan ja onko etäisyys tarpeeksi pieni
