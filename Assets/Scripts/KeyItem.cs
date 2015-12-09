@@ -8,7 +8,7 @@ public class KeyItem : MonoBehaviour
 
 		if(collider.gameObject.name == "Player"){
 			Destroy (gameObject);
-			GlobalVars.keyCount++;
+			GlobalVariables.keyCount++;
 		}
 	}
 }
