@@ -17,29 +17,14 @@ public class MoveTo : MonoBehaviour
 
 	private NavMeshAgent agent;
 
-	void Start () 
-	{
+	public void Init() {
 		GetComponent<AudioSource> ().clip = murina;
 		agent = GetComponent<NavMeshAgent> ();
 		GlobalVariables.isChasing = false;
-
-		/**
-		 *SEURAAVA KOODI VAIN TESTAUSTA VARTEN
-		 **/
-
-		WPSet.wpList.Add (new Vector3 (34.0f, -1.5f, 40.0f));
-		WPSet.wpList.Add (new Vector3(-56.0f, -1.5f, 24.0f));
-		WPSet.wpList.Add (new Vector3(38.0f, -1.5f, -111.0f));
-		WPSet.wpList.Add (new Vector3(-46.0f, -1.5f, -90.0f));
-
-		/**
-		 * LOPPUU TÄHÄN 
-		 **/
-
+		
 		WPSet.shuffleWPList();
-
+		
 		agent.destination = WPSet.wpList[WPSet.index];
-
 	}
 
 	void Update()
