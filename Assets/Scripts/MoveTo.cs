@@ -30,7 +30,7 @@ public class MoveTo : MonoBehaviour
 	void Update()
 	{
 		//jos tarpeeks lähellä WPtä nii vaihetaan seuraavaan
-		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 2 && !GlobalVariables.isChasing){
+		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 1 && !GlobalVariables.isChasing){
 		
 			if(WPSet.index == WPSet.wpList.Count){
 				WPSet.shuffleWPList();
@@ -64,7 +64,9 @@ public class MoveTo : MonoBehaviour
 			if(WPSet.index == WPSet.wpList.Count){
 				WPSet.shuffleWPList();
 			}
-			agent.destination = WPSet.wpList[WPSet.index];
+			//mennään pelaajan viimeiseen olinpaikkaan
+			agent.destination = player.position;
+
 			WPSet.index++;
 			CameraShake.setChase();
 		} else if (GlobalVariables.isChasing){
