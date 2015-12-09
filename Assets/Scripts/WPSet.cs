@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public static class WPSet
 {
-	public static Stack<Vector3> wpStack = new Stack<Vector3>();
 	public static List<Vector3> wpList = new List<Vector3>();
+	public static int index = 0;
 
 	public static void shuffleWPList()
 	{
@@ -15,15 +15,8 @@ public static class WPSet
 			wpList[t] = wpList[r];
 			wpList[r] = tmp;
 		}
-	}
-	
-	public static void refillWPStack()
-	{
-		foreach(Vector3 v in wpList){
-			wpStack.Push (v);
-		}
-		wpList.Clear ();
-	}
 
+		index = 0;
+	}
 }
 

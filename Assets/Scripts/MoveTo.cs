@@ -36,9 +36,8 @@ public class MoveTo : MonoBehaviour
 		 **/
 
 		WPSet.shuffleWPList();
-		WPSet.refillWPStack();
 
-		agent.destination = WPSet.wpStack.Peek ();
+		agent.destination = WPSet.wpList[WPSet.index];
 
 	}
 
@@ -47,27 +46,28 @@ public class MoveTo : MonoBehaviour
 		//jos tarpeeks lähellä WPtä nii vaihetaan seuraavaan
 		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 2 && !GlobalVariables.isChasing){
 		
-			if(WPSet.wpStack.Count == 0){
+			if(WPSet.index == WPSet.wpList.Count){
 				WPSet.shuffleWPList();
-				WPSet.refillWPStack();
 			}
-			WPSet.wpList.Add(WPSet.wpStack.Peek ());
-			WPSet.wpStack.Pop();
-			agent.destination = WPSet.wpStack.Peek ();
+			agent.destination = WPSet.wpList[WPSet.index];
+			WPSet.index++;
 		}
 
 		// Tää tapahtuu kun pelaaja on tarpeeks lähellä aggrottavaksi, eikä hiippaile takana
-		if(playerIsAggroable() && !GlobalVariables.isChasing){
+		if(playerIsAggroable()){
 			Debug.Log ("Player in sight!");
 			GetComponent<AudioSource>().Play();
 			musicMgr.GetComponent<MusicManager>().playChase();
+
+			//Tää erikseen, että kamera-efekti asetetaan vaan kerran
+			CameraShake.setChase();
+
 			GlobalVariables.isChasing = true;
 			agent.speed = turboMörkö;
 			agent.destination = player.position;
-			CameraShake.setChase();
 		}
 
-		// Jos pelaajaa jahdataan, nii tää tapahtuu
+		// Kun pelaaja katoo
 		if(Physics.Linecast (rayOrig.position, playerTargetPoint.position) && GlobalVariables.isChasing){
 			Debug.Log ("Player lost");
 			Debug.DrawLine (rayOrig.position, playerTargetPoint.position, Color.red);
@@ -75,14 +75,14 @@ public class MoveTo : MonoBehaviour
 			agent.speed = 4; // perusnopeus
 			musicMgr.GetComponent<MusicManager>().playNormal ();
 
-			if(WPSet.wpStack.Count == 0){
+			if(WPSet.index == WPSet.wpList.Count){
 				WPSet.shuffleWPList();
-				WPSet.refillWPStack();
 			}
-			WPSet.wpList.Add(WPSet.wpStack.Peek ());
-			WPSet.wpStack.Pop ();
-			agent.destination = WPSet.wpStack.Peek ();
+			agent.destination = WPSet.wpList[WPSet.index];
+			WPSet.index++;
 			CameraShake.setChase();
+		} else if (GlobalVariables.isChasing){
+			agent.destination = player.position;
 		}
 
 		//Pelaajan ruutu jäätyy, mitä lähempänä mörriä ollaan.

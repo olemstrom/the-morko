@@ -1,0 +1,12 @@
+# Blender MTL File: 'morko_v2_final_single.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.377226 0.354864 0.354864
+Ks 0.054745 0.054745 0.054745
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Markus\Desktop\morko\morko_v2_final_uv_color.png
