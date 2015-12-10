@@ -15,6 +15,13 @@ public class MenuScript : MonoBehaviour {
 		quitButton = quitButton.GetComponent<Button>();
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
+
+		GlobalVariables.isChasing = false;
+		GlobalVariables.keyCount = 0;
+		GlobalVariables.keyChase = false;
+
+		CameraShake.setChaseNo();
+
 	}
 	
 	// Update is called once per frame
