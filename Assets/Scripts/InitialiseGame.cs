@@ -58,7 +58,7 @@ public class InitialiseGame : MonoBehaviour {
 		Vertex2 playerPos = map.GetRooms()[0].GetCenterPoint();
 		int x = CellSize * playerPos.x;
 		int z = CellSize * playerPos.y;
-		player.transform.localPosition = new Vector3 (x, 0, z);
+		player.transform.localPosition = new Vector3 (x, 1.0f, z);
 
 		PlaceDoor ();
 	}

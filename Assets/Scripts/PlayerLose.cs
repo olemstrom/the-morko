@@ -8,6 +8,8 @@ public class PlayerLose : MonoBehaviour
 	{
 		if(collider.gameObject.name == "Player"){
 			Debug.Log("MÖRKÖ SAI PELAAJAN KIINNI");
+			CameraShake.setChaseNo();
+			Application.LoadLevel(2);
 		}
 	}
 }

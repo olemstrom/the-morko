@@ -5,6 +5,7 @@ public static class GlobalVariables
 {
 	public static int keyCount = 0;
 	public static bool isChasing = false;
+	public static bool keyChase = false;
 
 	public static bool keyFound()
 	{

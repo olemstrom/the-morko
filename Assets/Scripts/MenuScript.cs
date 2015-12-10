@@ -13,6 +13,8 @@ public class MenuScript : MonoBehaviour {
 	{
 		playButton = playButton.GetComponent<Button>();
 		quitButton = quitButton.GetComponent<Button>();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 	
 	// Update is called once per frame

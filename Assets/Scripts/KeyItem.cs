@@ -12,6 +12,7 @@ public class KeyItem : MonoBehaviour
 			gameObject.GetComponent<MeshRenderer>().enabled = false;
 			gameObject.GetComponent<MeshCollider>().enabled = false;
 			GlobalVariables.keyCount++;
+			GlobalVariables.keyChase = true;
 		}
 	}
 

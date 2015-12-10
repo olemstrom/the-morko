@@ -46,6 +46,7 @@ public class GameOverSwitch : MonoBehaviour
 				timer += Time.deltaTime;
 				if(timer > 2.0f){
 					Debug.Log ("NYT");
+					Application.LoadLevel (0);
 				}
 			}
 

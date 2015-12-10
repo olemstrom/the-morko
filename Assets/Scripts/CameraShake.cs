@@ -20,10 +20,12 @@ public class CameraShake : MonoBehaviour {
 
 	public static void setChase()
 	{
-		if(chasemode)
-			chasemode = false;
-		else
 			chasemode = true;
+	}
+
+	public static void setChaseNo()
+	{
+		chasemode = false;
 	}
 
 }
