@@ -23,7 +23,7 @@ public class InitialiseGame : MonoBehaviour {
 		CreatePlayer ();
 		CreateMorran ();
 		CreateKey ();
-		CreateFog ();
+		//CreateFog ();
 	}
 
 	public void CreateFog() {
@@ -80,7 +80,7 @@ public class InitialiseGame : MonoBehaviour {
 		
 		Vector3 localScale = closest.transform.localScale;
 		float xscale = localScale.x / CellSize;
-		closest.transform.localScale = new Vector3(xscale*2, localScale.y, localScale.z);
+		closest.transform.localScale = new Vector3(xscale*4, localScale.y*2/WallHeight, localScale.z);
 
 		Vector3 localPos = closest.transform.localPosition;
 		string name = closest.name;
