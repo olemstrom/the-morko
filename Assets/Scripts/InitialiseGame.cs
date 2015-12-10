@@ -8,6 +8,7 @@ public class InitialiseGame : MonoBehaviour {
 	public int MinRoomSizeInCells = 8;
 	public int CellCount = 100;
 	public int CellSize = 3;
+	public int WallHeight = 100;
 	public Map map;
 
 	public GameObject player;
@@ -15,12 +16,25 @@ public class InitialiseGame : MonoBehaviour {
 	public GameObject brick;
 	public GameObject key;
 	public GameObject door;
+	public GameObject fog;
 
 	void Start () {
 		CreateMap ();
 		CreatePlayer ();
 		CreateMorran ();
 		CreateKey ();
+		CreateFog ();
+	}
+
+	public void CreateFog() {
+		int mapSize = CellCount * CellSize;
+
+		for (int i = 0; i < mapSize; i+= 50) {
+			for (int j = 0; j < mapSize; j+= 50) {
+				fog.transform.localPosition = new Vector3(i, 0, j);
+				Instantiate (fog);
+			}
+		}
 	}
 
 	public void CreateKey() {
@@ -32,7 +46,7 @@ public class InitialiseGame : MonoBehaviour {
 	public void CreateMap() {
 		map = new Map (RoomCount, MaxRoomSizeInCells, MinRoomSizeInCells, CellSize, CellCount);
 		map.Generate ();
-		Map3D.Create (map, brick);
+		Map3D.Create (map, brick, WallHeight);
 
 		foreach (var room in map.GetRooms()) {
 			Vertex2 p = room.GetCenterPoint();

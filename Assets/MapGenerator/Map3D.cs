@@ -6,12 +6,7 @@ public class Map3D : MonoBehaviour {
 
 	private Map map;
 
-	public static void Create (Map map, GameObject brick) {
-		Map3D.GenerateWalls (map, brick);
-	}
-
-	public static void GenerateWalls(Map map, GameObject brick) {
-
+	public static void Create (Map map, GameObject brick, int WallHeight) {
 		int CellSize = map.CellSize;
 		int[,] tiles = map.ptiles;
 		int h = tiles.GetLength (0);
@@ -21,11 +16,11 @@ public class Map3D : MonoBehaviour {
 			for(int x = 0; x < w; x++) {
 				if(tiles[y, x] == PathGenerator.BUFFER) {
 					GameObject cube = Instantiate (brick);
-					cube.transform.localScale = new Vector3 (CellSize, 20, CellSize);
-					cube.transform.localPosition = new Vector3 (x*CellSize, 20 / 2, y*CellSize);
-
+					cube.transform.localScale = new Vector3 (CellSize, WallHeight, CellSize);
+					cube.transform.localPosition = new Vector3 (x*CellSize, WallHeight / 2, y*CellSize);
+					
 				}
-
+				
 			}
 		}
 
