@@ -91,8 +91,8 @@ public class InitialiseGame : MonoBehaviour {
 		morran.transform.localPosition = new Vector3 (x, 0, z);
 
 		MoveTo m = morran.GetComponents<MoveTo> ()[0];
-		//m.playerTargetPoint = player.transform.Find ("PlayerVisiblePoint");
-		//m.player = player.transform;
+		morran.GetComponent<MoveTo>().setPlayerTransform(player.transform);
+		morran.GetComponent<MoveTo>().setTargetPointTransform(GameObject.Find("PlayerVisiblePoint").transform);
 
 		m.Init ();
 	}
