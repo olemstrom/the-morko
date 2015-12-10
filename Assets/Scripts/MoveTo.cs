@@ -89,4 +89,14 @@ public class MoveTo : MonoBehaviour
 			return false;
 		}
 	}
+
+	public void setPlayerTransform(Transform pTrans)
+	{
+		player = pTrans;
+	}
+
+	public void setTargetPointTransform(Transform tpTrans)
+	{
+		playerTargetPoint = tpTrans;
+	}
 }
