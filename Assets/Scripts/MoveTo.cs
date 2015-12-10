@@ -29,6 +29,9 @@ public class MoveTo : MonoBehaviour
 
 	void Update()
 	{
+		Debug.DrawLine (rayOrig.position, playerTargetPoint.position, Color.green);
+		Debug.DrawLine (rayOrig.position, player.position, Color.green);
+		
 		//jos tarpeeks lähellä WPtä nii vaihetaan seuraavaan
 		if(Vector3.Distance(GetComponent<Transform>().position, agent.destination) < 1 && !GlobalVariables.isChasing){
 		
