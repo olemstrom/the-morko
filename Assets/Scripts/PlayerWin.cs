@@ -7,7 +7,8 @@ public class PlayerWin : MonoBehaviour {
 	{
 		if(collider.gameObject.name == "Player" &&  GlobalVariables.keyFound()){
 			Debug.Log ("PLAYER WIN");
-			Application.LoadLevel (0);
+			//Application.LoadLevel (0);
+			Application.Quit();
 		}
 	}
 }
